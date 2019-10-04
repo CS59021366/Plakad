@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:plakad1/main.dart';
+import 'package:plakad1/Home.dart';
 
 void main() {
   runApp(new MaterialApp(

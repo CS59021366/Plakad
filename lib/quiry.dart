@@ -37,7 +37,7 @@ class HomeState extends State<Home> {
     super.initState();
     item = Item("", "");
     final FirebaseDatabase database = FirebaseDatabase.instance; //Rather then just writing FirebaseDatabase(), get the instance.
-    itemRef = database.reference().child('items');
+    itemRef = database.reference().child('account');
     itemRef.onChildAdded.listen(_onEntryAdded);
     itemRef.onChildChanged.listen(_onEntryChanged);
   }
