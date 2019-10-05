@@ -1,8 +1,12 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:plakad1/Home.dart';
 import 'package:plakad1/quamroo.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart';
@@ -31,6 +35,7 @@ class _LandingScreenState extends State<LandingScreen> {
   List<String> _values3 = new List<String>();
   String _value4 = null;
   List<String> _values4 = new List<String>();
+  String _userId;
 
   String _text = '' ;
 
@@ -81,18 +86,16 @@ class _LandingScreenState extends State<LandingScreen> {
   });
 }
 
-Future uploadPic(BuildContext context) async{
+  Future uploadPic(BuildContext context) async{
     String fileName=basename(imageFile.path);
-    final StorageReference firebaseStorageRef =
-    FirebaseStorage.instance.ref().child(fileName);
-    final StorageUploadTask uploadTask =
-    firebaseStorageRef.putFile(imageFile);
+    final StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child(fileName);
+    final StorageUploadTask uploadTask = firebaseStorageRef.putFile(imageFile);
 
     var downUrl = await (await uploadTask.onComplete).ref.getDownloadURL();
     var url = downUrl.toString();
 
     return url;
-}
+  }
 
   @override
   void initState(){
@@ -118,6 +121,9 @@ Future uploadPic(BuildContext context) async{
 
 
   Widget build(BuildContext context) {
+    FirebaseAuth.instance.currentUser().then((user) {
+      _userId = user.uid;
+    });
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -134,6 +140,7 @@ Future uploadPic(BuildContext context) async{
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+
                       Text('ชนิดครีบ  :  ',style: TextStyle(fontSize: 15.0),),
                       DropdownButton<String>(
                       items: _values1.map<DropdownMenuItem<String>>((String value1){
@@ -253,8 +260,19 @@ Future uploadPic(BuildContext context) async{
                   RaisedButton(
                     color: Colors.black87,
                     onPressed: (){
+                      uploadPic(context);
+                      FirebaseDatabase.instance.reference().
+                      child('$_userId').child(_getDateNow()).set({
+                        'ชนิดครีบ': '$_value1',
+                        'ชนิดหาง': '$_value2',
+                        'ชนิดสี' : '$_value3',
+                        'ช่วงอายุ' : '$_value4',
+                        'เวลาที่ทำการวิเคราะห์': _getDateNow(),
+                        'ชื่อปลากัด': '$_text',
+                        'Url_Picture': '$_userId',
+                      },);
                       Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => Quamroo()
+                          builder: (context) => HalSatu()
                       ));
                     },child: Text("ส่งให้ผู้เชี่ยวชาญวิเคราะห์",style: TextStyle(color: Colors.white70),),),
                 ],)
@@ -266,4 +284,15 @@ Future uploadPic(BuildContext context) async{
       ),
     );
   }
+}
+
+Future<String> _getAccountKey() async {
+
+  Text('98465132');
+}
+
+String _getDateNow() {
+  var now = new DateTime.now();
+  var formatter = new DateFormat('yyyy-MM-dd HH:mm:ss');
+  return formatter.format(now);
 }
