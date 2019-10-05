@@ -4,6 +4,7 @@ import 'package:plakad1/Kitjakam.dart';
 import 'package:plakad1/Plawad.dart';
 import 'package:plakad1/ProFile.dart';
 import 'package:plakad1/Punhar.dart';
+import 'package:plakad1/moutain.dart';
 import 'package:plakad1/quamroo.dart';
 import 'package:plakad1/quiry.dart';
 
@@ -33,10 +34,10 @@ class HalSatu extends StatelessWidget {
         ),
         actions: <Widget>[
           IconButton(icon: Icon(
-              Icons.supervised_user_circle), onPressed: (
-
-              ){
-            //
+              Icons.supervised_user_circle), onPressed: (){
+            Navigator.push(context, MaterialPageRoute(
+                builder: (context) => ProFile()
+            ));
           }),
         ],
       ),
@@ -248,7 +249,7 @@ class Function6 extends StatelessWidget{ //class สร้างfunction
       child: GestureDetector(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(
-              builder: (context) => Home()
+              builder: (context) => Punhars()
           )); //MaterialPageRoute
         },
         child: new Column(

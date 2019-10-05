@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -96,7 +97,19 @@ class _HomeQuamroo extends State<Quamroo> {
                 );
               },
             )
-          )
+          ),Container(
+          child: FutureBuilder(
+            future: FirebaseAuth.instance.currentUser(),
+            builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {
+              if (snapshot.hasData) {
+                return Text(snapshot.data.uid);
+              }
+              else {
+                return Text('Loading...');
+              }
+            },
+          ),
+        )
         ],
       ),);
   }
