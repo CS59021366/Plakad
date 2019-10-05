@@ -286,11 +286,6 @@ class _LandingScreenState extends State<LandingScreen> {
   }
 }
 
-Future<String> _getAccountKey() async {
-
-  Text('98465132');
-}
-
 String _getDateNow() {
   var now = new DateTime.now();
   var formatter = new DateFormat('yyyy-MM-dd HH:mm:ss');
