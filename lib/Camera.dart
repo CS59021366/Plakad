@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:plakad1/Home.dart';
-import 'package:plakad1/quamroo.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart';
 
@@ -36,6 +35,7 @@ class _LandingScreenState extends State<LandingScreen> {
   String _value4 = null;
   List<String> _values4 = new List<String>();
   String _userId;
+
 
   String _text = '' ;
 
@@ -92,9 +92,18 @@ class _LandingScreenState extends State<LandingScreen> {
     final StorageUploadTask uploadTask = firebaseStorageRef.putFile(imageFile);
 
     var downUrl = await (await uploadTask.onComplete).ref.getDownloadURL();
-    var url = downUrl.toString();
-
-    return url;
+    var PicUrl = downUrl.toString();
+    FirebaseDatabase.instance.reference().child('ปลากัดที่ส่งให้ผู้เชี่ยวชาญวิเคราะห์').
+    child('$_userId').child(_getDateNow()).set({
+      'ชนิดครีบ': '$_value1',
+      'ชนิดหาง': '$_value2',
+      'ชนิดสี' : '$_value3',
+      'ช่วงอายุ' : '$_value4',
+      'เวลาที่ทำการวิเคราะห์': _getDateNow(),
+      'ชื่อปลากัด': '$_text',
+      'Url_Picture': '$PicUrl',
+    },);
+    return print('$PicUrl');
   }
 
   @override
@@ -261,16 +270,6 @@ class _LandingScreenState extends State<LandingScreen> {
                     color: Colors.black87,
                     onPressed: (){
                       uploadPic(context);
-                      FirebaseDatabase.instance.reference().
-                      child('$_userId').child(_getDateNow()).set({
-                        'ชนิดครีบ': '$_value1',
-                        'ชนิดหาง': '$_value2',
-                        'ชนิดสี' : '$_value3',
-                        'ช่วงอายุ' : '$_value4',
-                        'เวลาที่ทำการวิเคราะห์': _getDateNow(),
-                        'ชื่อปลากัด': '$_text',
-                        'Url_Picture': '$_userId',
-                      },);
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) => HalSatu()
                       ));
