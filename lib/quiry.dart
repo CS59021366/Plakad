@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:intl/intl.dart';
 
 
 
@@ -37,7 +39,7 @@ class HomeState extends State<Home02> {
   @override
   void initState() {
     super.initState();
-    item = Item("", "");
+    item = Item("", "", "", "", "", "", "");
     _initDB();
 
   }
@@ -75,31 +77,36 @@ class HomeState extends State<Home02> {
       ),
       body: Column(
         children: <Widget>[
+          SizedBox(height: 10.0),
           Flexible(
             child: FirebaseAnimatedList(
               query: itemRef,
               itemBuilder: (BuildContext context, DataSnapshot snapshot,
                   Animation<double> animation, int index) {
-                return new ListTile(
-                  title: Text(items[index].title),
-                  subtitle: Text(items[index].body),
+                return new Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Image.network(items[index].Picture,width: 300.0,height: 200.0,fit: BoxFit.cover),
+                        SizedBox(height: 10.0),
+                      ],
+                    ),
+                    Column(
+                      children: <Widget>[
+                        Text(items[index].NAME),
+                        Text(items[index].Date),
+                        Text(items[index].value1),
+                        Text(items[index].value2),
+                        Text(items[index].value3),
+                        Text(items[index].value4),
+                      ],
+                    )
+                  ],
                 );
               },
             ),
           ),
-          Container(
-            child: FutureBuilder(
-              future: FirebaseAuth.instance.currentUser(),
-              builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {
-                if (snapshot.hasData) {
-                  return Text(snapshot.data.uid);
-                }
-                else {
-                  return Text('Loading...');
-                }
-              },
-            ),
-          )
         ],
       ),
     );
@@ -108,20 +115,35 @@ class HomeState extends State<Home02> {
 
 class Item {
   String key;
-  String title;
-  String body;
+  String Picture;
+  String value1;
+  String value2;
+  String value3;
+  String value4;
+  String Date;
+  String NAME;
 
-  Item(this.title, this.body);
+  Item(this.Picture, this.value1, this.value2, this.value3, this.value4, this.Date, this.NAME);
 
   Item.fromSnapshot(DataSnapshot snapshot)
       : key = snapshot.key,
-        title = snapshot.value["ชนิดสี"],
-        body = snapshot.value["ชนิดครีบ"];
+        Picture = snapshot.value["Url_Picture"],
+        value1 = snapshot.value["ชนิดครีบ"],
+        value2 = snapshot.value["ชนิดหาง"],
+        value3 = snapshot.value["ชนิดสี"],
+        value4 = snapshot.value["ช่วงอายุ"],
+        Date = snapshot.value["เวลาที่ทำการวิเคราะห์"],
+        NAME = snapshot.value["ชื่อปลากัด"];
 
   toJson() {
     return {
-      "ชนิดสี": title,
-      "ชนิดครีบ": body,
+      "Url_Picture": Picture,
+      "ชนิดครีบ": value1,
+      "ชนิดหาง": value2,
+      "ชนิดสี": value3,
+      "ช่วงอายุ": value4,
+      "เวลาที่ทำการวิเคราะห์": Date,
+      "ชื่อปลากัด": NAME,
     };
   }
 }
