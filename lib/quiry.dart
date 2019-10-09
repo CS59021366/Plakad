@@ -28,7 +28,6 @@ class HomeState extends State<Home02> {
   List<Item> items = List();
   Item item;
   DatabaseReference itemRef;
-  String _userId;
   String getUID;
   FirebaseUser currentUser;
   DatabaseReference watchRef;
@@ -70,9 +69,6 @@ class HomeState extends State<Home02> {
 
   @override
   Widget build(BuildContext context) {
-    FirebaseAuth.instance.currentUser().then((user) {
-      _userId = user.uid;
-    });
     return Scaffold(
       appBar: AppBar(
         title: Text('ประวัติการวิเคราะห์'),
