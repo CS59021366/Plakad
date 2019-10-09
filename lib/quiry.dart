@@ -1,8 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
-// import 'package:firebase_core/firebase_core.dart'; not nessecary
 
 
 
@@ -15,20 +14,24 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData.dark(),
-      home: Home(),
+      home: Home02(),
     );
   }
 }
 
-class Home extends StatefulWidget {
+class Home02 extends StatefulWidget {
   @override
   HomeState createState() => HomeState();
 }
 
-class HomeState extends State<Home> {
+class HomeState extends State<Home02> {
   List<Item> items = List();
   Item item;
   DatabaseReference itemRef;
+  String _userId;
+  String getUID;
+  FirebaseUser currentUser;
+  DatabaseReference watchRef;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -36,10 +39,19 @@ class HomeState extends State<Home> {
   void initState() {
     super.initState();
     item = Item("", "");
-    final FirebaseDatabase database = FirebaseDatabase.instance; //Rather then just writing FirebaseDatabase(), get the instance.
-    itemRef = database.reference().child('account');
+    _initDB();
+
+  }
+
+  void _initDB() async{
+    final FirebaseDatabase database = FirebaseDatabase.instance;
+    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    currentUser = await firebaseAuth.currentUser();
+    itemRef = watchRef = database.reference().
+    child('ปลากัดที่ส่งให้ผู้เชี่ยวชาญวิเคราะห์').
+    child(currentUser.uid).
+    reference();
     itemRef.onChildAdded.listen(_onEntryAdded);
-    itemRef.onChildChanged.listen(_onEntryChanged);
   }
 
   _onEntryAdded(Event event) {
@@ -48,82 +60,50 @@ class HomeState extends State<Home> {
     });
   }
 
-  _onEntryChanged(Event event) {
-    var old = items.singleWhere((entry) {
-      return entry.key == event.snapshot.key;
-    });
-    setState(() {
-      items[items.indexOf(old)] = Item.fromSnapshot(event.snapshot);
-    });
-  }
-
   void handleSubmit() {
     final FormState form = formKey.currentState;
 
     if (form.validate()) {
-      form.save();
-      form.reset();
       itemRef.push().set(item.toJson());
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth.instance.currentUser().then((user) {
+      _userId = user.uid;
+    });
     return Scaffold(
       appBar: AppBar(
-        title: Text('FB example'),
+        title: Text('ประวัติการวิเคราะห์'),
       ),
-      resizeToAvoidBottomPadding: false,
       body: Column(
         children: <Widget>[
-          Flexible(
-            flex: 0,
-            child: Center(
-              child: Form(
-                key: formKey,
-                child: Flex(
-                  direction: Axis.vertical,
-                  children: <Widget>[
-                    ListTile(
-                      leading: Icon(Icons.info),
-                      title: TextFormField(
-                        initialValue: "",
-                        onSaved: (val) => item.title = val,
-                        validator: (val) => val == "" ? val : null,
-                      ),
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.info),
-                      title: TextFormField(
-                        initialValue: '',
-                        onSaved: (val) => item.body = val,
-                        validator: (val) => val == "" ? val : null,
-                      ),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.send),
-                      onPressed: () {
-                        handleSubmit();
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
           Flexible(
             child: FirebaseAnimatedList(
               query: itemRef,
               itemBuilder: (BuildContext context, DataSnapshot snapshot,
                   Animation<double> animation, int index) {
                 return new ListTile(
-                  leading: Icon(Icons.message),
                   title: Text(items[index].title),
                   subtitle: Text(items[index].body),
                 );
               },
             ),
           ),
+          Container(
+            child: FutureBuilder(
+              future: FirebaseAuth.instance.currentUser(),
+              builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {
+                if (snapshot.hasData) {
+                  return Text(snapshot.data.uid);
+                }
+                else {
+                  return Text('Loading...');
+                }
+              },
+            ),
+          )
         ],
       ),
     );
@@ -139,13 +119,13 @@ class Item {
 
   Item.fromSnapshot(DataSnapshot snapshot)
       : key = snapshot.key,
-        title = snapshot.value["title"],
-        body = snapshot.value["body"];
+        title = snapshot.value["ชนิดสี"],
+        body = snapshot.value["ชนิดครีบ"];
 
   toJson() {
     return {
-      "title": title,
-      "body": body,
+      "ชนิดสี": title,
+      "ชนิดครีบ": body,
     };
   }
 }
