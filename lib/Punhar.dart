@@ -1,7 +1,8 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:plakad1/Home.dart';
-import 'package:plakad1/main.dart';
 void main(){
   runApp(new MaterialApp(
     title: "Camera App",
@@ -69,20 +70,30 @@ class _HomePunhar extends State<Punhar> {
                 ],
               ),
 
-              new TextField(
-                onChanged:(String value){onChanged(value);},
-                maxLines: 20,
-                decoration: new InputDecoration(
-                    hintText: 'ใส่ปัญหาเพื่มเติมที่นี้',
-                    labelText: 'รายละเอีนดปัญหา',
-                    border:  new OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(25.0),
-                    )
+              new SizedBox(
+                child: new TextField(
+                  maxLines: 20,
+                  onChanged:(String value){onChanged(value);},
+                  decoration: new InputDecoration(
+                      hintText: 'ใส่ปัญหาเพื่มเติมที่นี้',
+                      labelText: 'รายละเอีนดปัญหา',
+                      border:  new OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(25.0),
+                      )
+                  ),
                 ),
               ),
+
+
               RaisedButton(
                 color: Colors.black87,
                 onPressed: (){
+                  FirebaseDatabase.instance.reference().child('ReportFromUser').
+                  child(_getDateNow()).set({
+                    'หัวข้อปัญหา': '$_value0',
+                    'รายละเอียด': '$_text',
+                  },);
+
                   Navigator.push(context, MaterialPageRoute(
                       builder: (context) => HalSatu()
                   ));
@@ -95,4 +106,9 @@ class _HomePunhar extends State<Punhar> {
     ),
     );
   }
+}
+String _getDateNow() {
+  var now = new DateTime.now();
+  var formatter = new DateFormat('yyyy-MM-dd HH:mm:ss');
+  return formatter.format(now);
 }

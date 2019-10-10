@@ -93,8 +93,19 @@ class _LandingScreenState extends State<LandingScreen> {
 
     var downUrl = await (await uploadTask.onComplete).ref.getDownloadURL();
     var PicUrl = downUrl.toString();
-    FirebaseDatabase.instance.reference().child('ปลากัดที่ส่งให้ผู้เชี่ยวชาญวิเคราะห์').
-    child('$_userId').child(_getDateNow()).set({
+//    FirebaseDatabase.instance.reference().child('UserHistory').
+//    child('$_userId').child(_getDateNow()).set({
+//      'ชนิดครีบ': '$_value1',
+//      'ชนิดหาง': '$_value2',
+//      'ชนิดสี' : '$_value3',
+//      'ช่วงอายุ' : '$_value4',
+//      'เวลาที่ทำการวิเคราะห์': _getDateNow(),
+//      'ชื่อปลากัด': '$_text',
+//      'Url_Picture': '$PicUrl',
+//      'UID' : '$_userId'
+//      },);
+    FirebaseDatabase.instance.reference().child('SentToExpert').
+    child(_getDateNow()).set({
       'ชนิดครีบ': '$_value1',
       'ชนิดหาง': '$_value2',
       'ชนิดสี' : '$_value3',
@@ -102,13 +113,14 @@ class _LandingScreenState extends State<LandingScreen> {
       'เวลาที่ทำการวิเคราะห์': _getDateNow(),
       'ชื่อปลากัด': '$_text',
       'Url_Picture': '$PicUrl',
+      'UID' : '$_userId'
     },);
     return print('$PicUrl');
   }
 
   @override
   void initState(){
-    _values1.addAll(["ระบุ","ครีบสั้น","ครีบยาว"]);
+    _values1.addAll(["ระบุ","ครีบสั้นหางเดี่ยว","ครีบยาวหางเดี่ยว","ครีบสั้นหางคู่","ครีบยาวหางคู่"]);
     _value1 = _values1.elementAt(0);
     _values2.addAll(["ระบุ","หางพัด","หางใบโพธิ์","หางมงกุฎ","หางพระจันทร์ครึ่งดวง"]);
     _value2 = _values2.elementAt(0);
@@ -144,8 +156,8 @@ class _LandingScreenState extends State<LandingScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               imageFile == null
-                  ? Image.asset('assets/Noimage.png',width: 300,height: 300,)
-                  :Image.file(imageFile,width: 300,height: 300),
+                  ? Image.asset('assets/Noimage.png',width: 400,height: 400,)
+                  :Image.file(imageFile,width: 400,height: 400),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -240,6 +252,7 @@ class _LandingScreenState extends State<LandingScreen> {
               new TextField(
                 onChanged:(String value){onChanged(value);},
                 maxLines: 1,
+                maxLength: 20,
                 style: TextStyle(color: Colors.black87),
                 decoration: new InputDecoration(
                     hintText: 'ใส่ชื่อปลากัดที่นี้ (ถ้ามี)',
@@ -287,6 +300,6 @@ class _LandingScreenState extends State<LandingScreen> {
 
 String _getDateNow() {
   var now = new DateTime.now();
-  var formatter = new DateFormat('yyyy-MM-dd HH:mm:ss');
+  var formatter = new DateFormat('HH:mm:ss dd-MM-yyyy');
   return formatter.format(now);
 }

@@ -4,9 +4,10 @@ import 'package:plakad1/Kitjakam.dart';
 import 'package:plakad1/Plawad.dart';
 import 'package:plakad1/ProFile.dart';
 import 'package:plakad1/Punhar.dart';
-import 'package:plakad1/moutain.dart';
 import 'package:plakad1/quamroo.dart';
 import 'package:plakad1/quiry.dart';
+
+import 'Voteapp.dart';
 
 void main(){
   runApp(new MaterialApp(
@@ -249,7 +250,7 @@ class Function6 extends StatelessWidget{ //class สร้างfunction
       child: GestureDetector(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(
-              builder: (context) => Punhars()
+              builder: (context) => Voteapp()
           )); //MaterialPageRoute
         },
         child: new Column(

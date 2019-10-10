@@ -4,8 +4,8 @@ import 'package:plakad1/Home.dart';
 import 'package:plakad1/Sign-Up.dart';
 
 class LoginPageV2 extends StatefulWidget {
-  @override
-  _LoginPageV2State createState() => _LoginPageV2State();
+@override
+_LoginPageV2State createState() => _LoginPageV2State();
 }
 
 class _LoginPageV2State extends State<LoginPageV2> {
@@ -22,8 +22,7 @@ class _LoginPageV2State extends State<LoginPageV2> {
         child: new Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            new Image(image: new AssetImage("assets/mbicons.png"),
-              width: 180,height: 180,),
+            new Image.asset('assets/Logo.png',width: 300.0,height: 300.0,fit: BoxFit.cover,),
             new Row(
               children: <Widget>[
                 Expanded(
@@ -33,9 +32,9 @@ class _LoginPageV2State extends State<LoginPageV2> {
                       alignment: Alignment.center,
                       height: 37.0,
                       decoration: new BoxDecoration(
-                          color: Color(0xFF5DB7DE),borderRadius: new BorderRadius.circular(30.0)
+                          color: Colors.lightGreenAccent,borderRadius: new BorderRadius.circular(30.0)
                       ),
-                      child: new Text("Sign In Account",style: new TextStyle(fontSize: 25.0),),
+                      child: new Text("Sign In Account",style: new TextStyle(fontSize: 25.0,color: Colors.black),),
                     ),//Container
                   ),//Padding
                 ),//Expanded
@@ -45,10 +44,10 @@ class _LoginPageV2State extends State<LoginPageV2> {
               key: _formKey,
               child: Theme(
                 data: new ThemeData(brightness: Brightness.light,
-                    primarySwatch: Colors.lightBlue,
+                    primarySwatch: Colors.brown,
                     inputDecorationTheme: new InputDecorationTheme(
                         labelStyle: new TextStyle(
-                            color: Colors.lightBlue,
+                            color: Colors.brown,
                             fontSize: 20.0))),
                 child: Padding(
                   padding: const EdgeInsets.all(30.0),
@@ -57,7 +56,7 @@ class _LoginPageV2State extends State<LoginPageV2> {
                       TextFormField(
                         validator: (input) {
                           if (input.isEmpty) {
-                            return 'Please type an email';
+                            return 'Please type an Email';
                           }
                         },
                         onSaved: (input) => _email = input,
@@ -67,8 +66,8 @@ class _LoginPageV2State extends State<LoginPageV2> {
                       ),
                       TextFormField(
                         validator: (input) {
-                          if (input.length > 6) {
-                            return 'Your password need to be atleast 6 characters';
+                          if (input.isEmpty) {
+                            return 'Please type Password';
                           }
                         },
                         onSaved: (input) => _password = input,
@@ -92,8 +91,8 @@ class _LoginPageV2State extends State<LoginPageV2> {
                     child: Container(
                       child: RaisedButton(
                         onPressed: signIn,
-                        color: Color(0xFF5DB7DE),
-                        child: Text('Sign in'),
+                        color: Colors.lime,
+                        child: Text('Sign in',style: TextStyle(fontSize: 30),),
                       ),//Container
                     ),//RaisedButton
                   ),//Padding
@@ -103,51 +102,6 @@ class _LoginPageV2State extends State<LoginPageV2> {
             SizedBox(
               height: 10,
             ),
-            new Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 20.0, right: 10.0, top: 10.0),
-                    child: new Container(
-                      alignment: Alignment.center,
-                      child: new Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 45.0),
-                            child: new Image(
-                              image: AssetImage("assets/facebook.png"),
-                              width: 50.0, height: 50.0,
-                            ),//Image
-                          ),//Padding
-                        ],//<Widget>[]
-                      ),//Column
-                    ),//Container
-                  ),//Padding
-                ),//Expanded
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 10.0, right: 20.0, top: 10.0),
-                    child: new Container(
-                      alignment: Alignment.center,
-                      child: new Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 45.0),
-                            child: new Image(
-                              image: AssetImage("assets/google.png"),
-                              width: 55.0, height: 55.0,
-                            ),//Image
-                          ),//Padding
-                        ],//<Widget>[]
-                      ),//Column
-                    ),//Container
-                  ),//Padding
-                ),//Expanded
-              ],//<Widget>[]
-            ),//Row
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -160,7 +114,7 @@ class _LoginPageV2State extends State<LoginPageV2> {
                             builder: (context) => SignUp()));
                       },//onTap
                       child: new Text("Create A New Account",style: new TextStyle(
-                          fontSize: 17.0, color: Colors.lightBlue)),
+                          fontSize: 20.0, color: Colors.red)),
                     ),//GestureDetector
                   ),//Padding
                 ],//<Widget>[]
