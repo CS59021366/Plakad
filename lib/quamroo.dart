@@ -112,7 +112,7 @@ class _HomeQuamroo extends State<Quamroo> {
               }
             },
           ),
-        )
+        ),
         ],
       ),);
   }

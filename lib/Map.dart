@@ -1,113 +1,67 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 
 const kGoogleApiKey = "AIzaSyBkVfTJf4Y7RIMfyHSPBWNuipvQR_rKuPc";
 
-void main() => runApp(LocationPag());
 
-class LocationPag extends StatefulWidget {
+
+class LocationPage extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  _LocationPageState createState() => _LocationPageState();
 }
 
-class _MyAppState extends State<LocationPag> {
+class _LocationPageState extends State<LocationPage> {
   Completer<GoogleMapController> _controller = Completer();
+  LocationData currentLocation;
+  Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
 
-  static const LatLng _center = const LatLng(45.521563, -122.677433);
-  Set<Marker> markers = Set();
-  MapType _currentMapType = MapType.normal;
-  LatLng centerPosition;
-
-  void _onMapCreated(GoogleMapController controller) {
-    _controller.complete(controller);
+  Future<LocationData> getCurrentLocation() async {
+    Location location = Location();
+    try {
+      return await location.getLocation();
+    } on PlatformException catch (e) {
+      if (e.code == 'PERMISSION_DENIED') {
+        // Permission denied
+      }
+      return null;
+    }
   }
 
-  void _onMapTypeButtonPressed() {
-    setState(() {
-      _currentMapType = _currentMapType == MapType.normal
-          ? MapType.satellite
-          : MapType.normal;
-      print("dddd" + _currentMapType.toString());
-    });
+  Future _goToMe() async {
+    final GoogleMapController controller = await _controller.future;
+    currentLocation = await getCurrentLocation();
+    controller.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(
+              currentLocation.latitude,
+              currentLocation.longitude),
+          zoom: 16,
+        )));
   }
 
-  void _onAddMarkerButtonPressed() {
-    InfoWindow infoWindow =
-    InfoWindow(title: "Location" + markers.length.toString());
-    Marker marker = Marker(
-      markerId: MarkerId(markers.length.toString()),
-      infoWindow: infoWindow,
-      position: centerPosition,
-      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
-    );
-    setState(() {
-      markers.add(marker);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: new ThemeData(
-        primaryColor: const Color(0xFF02BB9F),
-        primaryColorDark: const Color(0xFF167F67),
-        accentColor: const Color(0xFF02BB9F),
+    return Scaffold(
+      body: GoogleMap(
+        myLocationEnabled: true,
+        mapType: MapType.normal,
+        initialCameraPosition: CameraPosition(
+          target: LatLng(13.7650836, 100.5379664),
+          zoom: 16,
+        ),
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
+        },
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Google map widget',
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-        body: Stack(
-          children: <Widget>[
-            GoogleMap(
-              onMapCreated: _onMapCreated,
-              mapType: _currentMapType,
-              myLocationEnabled: true,
-              markers: markers,
-              onCameraMove: _onCameraMove,
-              initialCameraPosition: CameraPosition(
-                target: _center,
-                zoom: 11.0,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Align(
-                alignment: Alignment.bottomLeft,
-                child: new FloatingActionButton(
-                  onPressed: _onMapTypeButtonPressed,
-                  child: new Icon(
-                    Icons.map,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: new FloatingActionButton(
-                  onPressed: _onAddMarkerButtonPressed,
-                  child: new Icon(
-                    Icons.edit_location,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _goToMe,
+        label: Text('My location'),
+        icon: Icon(Icons.near_me),
       ),
     );
-  }
-
-  void _onCameraMove(CameraPosition position) {
-    centerPosition = position.target;
   }
 }

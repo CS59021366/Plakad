@@ -42,7 +42,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
               onPressed: (){
 //                uploadPic(context);
                 Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => LocationPag()
+                    builder: (context) => LocationPage()
                 ));
               },child: Text("นำทางไปที่จัดแข่ง",style: TextStyle(color: Colors.white70),),),
           ],

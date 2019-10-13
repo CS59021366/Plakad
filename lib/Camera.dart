@@ -106,12 +106,12 @@ class _LandingScreenState extends State<LandingScreen> {
 //      },);
     FirebaseDatabase.instance.reference().child('SentToExpert').
     child(_getDateNow()).set({
-      'ชนิดครีบ': '$_value1',
-      'ชนิดหาง': '$_value2',
-      'ชนิดสี' : '$_value3',
-      'ช่วงอายุ' : '$_value4',
-      'เวลาที่ทำการวิเคราะห์': _getDateNow(),
-      'ชื่อปลากัด': '$_text',
+      'Detail1': '$_value1',
+      'Detail2': '$_value2',
+      'Detail3' : '$_value3',
+      'Age' : '$_value4',
+      'Date': _getDateNow(),
+      'Neme': '$_text',
       'Url_Picture': '$PicUrl',
       'UID' : '$_userId'
     },);

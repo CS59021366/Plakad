@@ -104,16 +104,49 @@ class HomeState extends State<Plawad> {
                         )
                       ],
                     ),
-                    Text(items[index].value1),
-                    Text(items[index].value2),
-                    Text(items[index].value3),
-                    Text(items[index].value4),
-                    Text(items[index].value5),
-                    Text(items[index].value6),
-                    Text(items[index].value7),
-                    Text(items[index].value8),
-                    Text(items[index].value9),
-                    Text(items[index].value10),
+                    ExpansionTile(
+                      backgroundColor: Colors.black54,
+                      trailing: Icon(Icons.search),
+                      title: Text('กดเพื่อดูผลคะแนนความสวยงามปลากัด',style: TextStyle(color: Colors.black),),
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                new Text('       สัดส่วนของปลากัด       ',style: TextStyle(fontSize: 16.0),),
+                                new Text('หัวและตา'),
+                                new Text('ลำตัวและเกร็ด'),
+                                new Text('ครับหลัง'),
+                                new Text('ครีบหาง'),
+                                new Text('ครับก้น'),
+                                new Text('ครีบอื่นๆ'),
+                                new Text('สีและลวดลาย'),
+                                new Text('การทรงตัว'),
+                                new Text('การพองสู้'),
+                                new Text('ภาพรวม'),
+                              ],
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                new Text('       ระบบวิเคราะห์       ',style: TextStyle(fontSize: 16.0),),
+                                Text(items[index].value1,style: TextStyle(fontSize: 16.0),),
+                                Text(items[index].value2,style: TextStyle(fontSize: 16.0),),
+                                Text(items[index].value3,style: TextStyle(fontSize: 16.0),),
+                                Text(items[index].value4,style: TextStyle(fontSize: 16.0),),
+                                Text(items[index].value5,style: TextStyle(fontSize: 16.0),),
+                                Text(items[index].value6,style: TextStyle(fontSize: 16.0),),
+                                Text(items[index].value7,style: TextStyle(fontSize: 16.0),),
+                                Text(items[index].value8,style: TextStyle(fontSize: 16.0),),
+                                Text(items[index].value9,style: TextStyle(fontSize: 16.0),),
+                                Text(items[index].value10,style: TextStyle(fontSize: 16.0),),
+                              ],
+                            )
+                          ],
+                        ),
+                      ]),
+
+
                   ],
                 );
               },
@@ -152,12 +185,12 @@ class Item {
   Item.fromSnapshot(DataSnapshot snapshot)
       : key = snapshot.key,
         Picture = snapshot.value["Url_Picture"],
-        Detail1 = snapshot.value["ชนิดครีบ"],
-        Detail2 = snapshot.value["ชนิดหาง"],
-        Detail3 = snapshot.value["ชนิดสี"],
-        Detail4 = snapshot.value["ช่วงอายุ"],
-        Date = snapshot.value["เวลาที่ทำการวิเคราะห์"],
-        NAME = snapshot.value["ชื่อปลากัด"],
+        Detail1 = snapshot.value["Detail1"],
+        Detail2 = snapshot.value["Detail2"],
+        Detail3 = snapshot.value["Detail3"],
+        Detail4 = snapshot.value["Age"],
+        Date = snapshot.value["Date"],
+        NAME = snapshot.value["Neme"],
         value1 = snapshot.value["ตาและหัว"],
         value2 = snapshot.value["ลำตัวและเกร็ด"],
         value3 = snapshot.value["ครีบหลัง"],
@@ -172,12 +205,12 @@ class Item {
   toJson() {
     return {
       "Url_Picture": Picture,
-      "ชนิดครีบ": Detail1,
-      "ชนิดหาง": Detail2,
-      "ชนิดสี": Detail3,
-      "ช่วงอายุ": Detail4,
-      "เวลาที่ทำการวิเคราะห์": Date,
-      "ชื่อปลากัด": NAME,
+      "Detail1": Detail1,
+      "Detail2": Detail2,
+      "Detail3": Detail3,
+      "Age": Detail4,
+      "Date": Date,
+      "Neme": NAME,
       'ตาและหัว': value1,
       'ลำตัวและเกร็ด': value2,
       'ครีบหลัง' : value3,

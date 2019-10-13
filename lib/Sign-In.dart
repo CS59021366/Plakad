@@ -92,7 +92,7 @@ class _LoginPageV2State extends State<LoginPageV2> {
                       child: RaisedButton(
                         onPressed: signIn,
                         color: Colors.lime,
-                        child: Text('Sign in',style: TextStyle(fontSize: 30),),
+                        child: Text('Sign in',style: TextStyle(fontSize: 40),),
                       ),//Container
                     ),//RaisedButton
                   ),//Padding

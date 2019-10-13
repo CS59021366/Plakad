@@ -90,8 +90,8 @@ class _HomePunhar extends State<Punhar> {
                 onPressed: (){
                   FirebaseDatabase.instance.reference().child('ReportFromUser').
                   child(_getDateNow()).set({
-                    'หัวข้อปัญหา': '$_value0',
-                    'รายละเอียด': '$_text',
+                    'Header': '$_value0',
+                    'Detail': '$_text',
                   },);
 
                   Navigator.push(context, MaterialPageRoute(
