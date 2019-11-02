@@ -148,6 +148,7 @@ class _LandingScreenState extends State<LandingScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.lightGreen,
         title: Text("เลือกรูปภาพ"),
       ),
       body: ListView(children: <Widget>[
@@ -273,11 +274,6 @@ class _LandingScreenState extends State<LandingScreen> {
               new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  RaisedButton(
-                    color: Colors.black87,
-                    onPressed: (){
-                      uploadPic(context);
-                    },child: Text("ส่งให้ระบบวิเคราะห์",style: TextStyle(color: Colors.white70),),),
 
                   RaisedButton(
                     color: Colors.black87,
@@ -286,7 +282,7 @@ class _LandingScreenState extends State<LandingScreen> {
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) => HalSatu()
                       ));
-                    },child: Text("ส่งให้ผู้เชี่ยวชาญวิเคราะห์",style: TextStyle(color: Colors.white70),),),
+                    },child: Text("ยืนยัน",style: TextStyle(color: Colors.white70),),),
                 ],)
             ],
           ),

@@ -22,6 +22,7 @@ class _HomeQuamroo extends State<Quamroo> {
 
     return new Scaffold(
       appBar: new AppBar(
+        backgroundColor: Colors.lightGreen,
         title: new Text('ความรู้เกี่ยวกับปลากัด'),
       ),
       body: ListView(

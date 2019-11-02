@@ -20,10 +20,10 @@ class _ProFileState extends State<ProFile> {
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: new AppBar(
-            backgroundColor: Colors.transparent,
+            backgroundColor: Colors.lightGreen,
+            title: Text('ออกจากระบบ'),
             elevation: 0.0,
-            iconTheme: new IconThemeData(color: Color(0xFF5DB7DE))),
-        backgroundColor: Color(0xFFEBE4D6),
+            iconTheme: new IconThemeData(color: Colors.black)),
         body:  ListView(
           children: <Widget>[
             Padding(
@@ -52,7 +52,7 @@ class _ProFileState extends State<ProFile> {
                       child: new Container(
                         child: new Column(
                           children: <Widget>[
-                            new Text('Email' ,style: TextStyle(fontSize: 23.0, color: Colors.black)),
+                            new Text('Email: xxxxxx@gmail.com' ,style: TextStyle(fontSize: 23.0, color: Colors.black)),
                           ],//<Widget>[]
                         ),//Column
                       ),//Container
@@ -65,12 +65,13 @@ class _ProFileState extends State<ProFile> {
               children: <Widget>[
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(40.0),
+                    padding: const EdgeInsets.all(30.0),
                     child: new Container(
                       alignment: Alignment.center,
-                      height: 40,
+                      height: 50,
                       decoration: new BoxDecoration(
-                          color: Color(0xFFDBAC99),borderRadius: new BorderRadius.circular(10.0)),
+                          color: Colors.orangeAccent,
+                          borderRadius: new BorderRadius.circular(10.0)),
                       child: new Container(
                         child: new GestureDetector(
                           onTap: () {
@@ -80,7 +81,7 @@ class _ProFileState extends State<ProFile> {
                           child: new Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              new Text("HISTORY ANALYSIS",style: TextStyle(fontSize: 25.0, color: Colors.black)),
+                              new Text("= ข้อมูลผู้ใช้งาน =",style: TextStyle(fontSize: 30.0, color: Colors.black)),
                             ],//<Widget>[]
                           ),//Column
                         ),//GestureDetector
@@ -101,8 +102,8 @@ class _ProFileState extends State<ProFile> {
                         child: Container(
                           child: RaisedButton(
                             onPressed: signOut,
-                            color: Color(0xFFDBAC99),
-                            child: Text('Sign Out'),
+                            color: Colors.red,
+                            child: Text('Log Out',style: TextStyle(color: Colors.black,fontSize: 20.0,fontWeight: FontWeight.bold)),
                           ),//RaiseButton
                         ),//Container
                       )//Padding

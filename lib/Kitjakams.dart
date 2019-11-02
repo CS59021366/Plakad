@@ -55,6 +55,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.lightGreen,
         leading: IconButton(icon: Icon(Icons.subdirectory_arrow_left), onPressed: (){
           Navigator.push(context, MaterialPageRoute(
               builder: (context) => HalSatu()

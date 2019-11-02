@@ -41,6 +41,7 @@ class _HomePunhar extends State<Punhar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.lightGreen,
         title: Text("รายงานปัญหา"),
       ),
       body: ListView(

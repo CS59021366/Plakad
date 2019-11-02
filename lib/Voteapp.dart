@@ -104,6 +104,7 @@ class _HomeViKror extends State<Voteapp> {
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: new AppBar(
+          backgroundColor: Colors.lightGreen,
           title: new Text('ให้คะแนนแอปพลิเคชัน'),
         ),
         resizeToAvoidBottomPadding: false,

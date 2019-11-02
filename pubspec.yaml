@@ -26,6 +26,14 @@ dependencies:
   font_awesome_flutter: 8.5.0
   firebase_core: 0.4.0+9
   firebase_database: 3.0.7
+  intl: 0.16.0
+  rflutter_alert: ^1.0.2
+  flutter_google_places: 0.2.3
+  google_maps_flutter: 0.5.7
+  location: 2.3.5
+  tflite: ^1.0.4
+  image: 2.0.5
+
   flutter:
     sdk: flutter
 

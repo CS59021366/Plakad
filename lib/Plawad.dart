@@ -36,12 +36,28 @@ class HomeState extends State<Plawad> {
   @override
   void initState() {
     super.initState();
-    item = Item("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+    item = Item(
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "");
     _initDB();
-
   }
 
-  void _initDB() async{
+  void _initDB() async {
     final FirebaseDatabase database = FirebaseDatabase.instance;
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     currentUser = await firebaseAuth.currentUser();
@@ -68,8 +84,10 @@ class HomeState extends State<Plawad> {
 
   @override
   Widget build(BuildContext context) {
+    if (itemRef == null){return Text('No Data............',style: TextStyle(fontSize: 40.0,color: Colors.white),);}else{
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.lightGreen,
         title: Text('ประวัติการวิเคราะห์'),
       ),
       body: Column(
@@ -83,11 +101,12 @@ class HomeState extends State<Plawad> {
                 return new Column(
                   children: <Widget>[
                     Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         Column(
                           children: <Widget>[
-                            Image.network(items[index].Picture,width: 300.0,height: 200.0,),
+                            Image.network(items[index].Picture, width: 300.0,
+                              height: 200.0,),
                             SizedBox(height: 10.0),
                           ],
                         ),
@@ -99,52 +118,66 @@ class HomeState extends State<Plawad> {
                             Text(items[index].Detail2),
                             Text(items[index].Detail3),
                             Text(items[index].Detail4),
-    //
+                            //
                           ],
                         )
                       ],
                     ),
                     ExpansionTile(
-                      backgroundColor: Colors.black54,
-                      trailing: Icon(Icons.search),
-                      title: Text('กดเพื่อดูผลคะแนนความสวยงามปลากัด',style: TextStyle(color: Colors.black),),
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Column(
-                              children: <Widget>[
-                                new Text('       สัดส่วนของปลากัด       ',style: TextStyle(fontSize: 16.0),),
-                                new Text('หัวและตา'),
-                                new Text('ลำตัวและเกร็ด'),
-                                new Text('ครับหลัง'),
-                                new Text('ครีบหาง'),
-                                new Text('ครับก้น'),
-                                new Text('ครีบอื่นๆ'),
-                                new Text('สีและลวดลาย'),
-                                new Text('การทรงตัว'),
-                                new Text('การพองสู้'),
-                                new Text('ภาพรวม'),
-                              ],
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                new Text('       ระบบวิเคราะห์       ',style: TextStyle(fontSize: 16.0),),
-                                Text(items[index].value1,style: TextStyle(fontSize: 16.0),),
-                                Text(items[index].value2,style: TextStyle(fontSize: 16.0),),
-                                Text(items[index].value3,style: TextStyle(fontSize: 16.0),),
-                                Text(items[index].value4,style: TextStyle(fontSize: 16.0),),
-                                Text(items[index].value5,style: TextStyle(fontSize: 16.0),),
-                                Text(items[index].value6,style: TextStyle(fontSize: 16.0),),
-                                Text(items[index].value7,style: TextStyle(fontSize: 16.0),),
-                                Text(items[index].value8,style: TextStyle(fontSize: 16.0),),
-                                Text(items[index].value9,style: TextStyle(fontSize: 16.0),),
-                                Text(items[index].value10,style: TextStyle(fontSize: 16.0),),
-                              ],
-                            )
-                          ],
-                        ),
-                      ]),
+                        backgroundColor: Colors.black54,
+                        trailing: Icon(Icons.search),
+                        title: Text('กดเพื่อดูผลคะแนนความสวยงามปลากัด',
+                          style: TextStyle(color: Colors.black),),
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Column(
+                                children: <Widget>[
+                                  new Text('       สัดส่วนของปลากัด       ',
+                                    style: TextStyle(fontSize: 16.0),),
+                                  new Text('หัวและตา'),
+                                  new Text('ลำตัวและเกร็ด'),
+                                  new Text('ครับหลัง'),
+                                  new Text('ครีบหาง'),
+                                  new Text('ครับก้น'),
+                                  new Text('ครีบอื่นๆ'),
+                                  new Text('สีและลวดลาย'),
+                                  new Text('การทรงตัว'),
+                                  new Text('การพองสู้'),
+                                  new Text('ภาพรวม'),
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment
+                                    .spaceBetween,
+                                children: <Widget>[
+                                  new Text('       ระบบวิเคราะห์       ',
+                                    style: TextStyle(fontSize: 16.0),),
+                                  Text(items[index].value1,
+                                    style: TextStyle(fontSize: 16.0),),
+                                  Text(items[index].value2,
+                                    style: TextStyle(fontSize: 16.0),),
+                                  Text(items[index].value3,
+                                    style: TextStyle(fontSize: 16.0),),
+                                  Text(items[index].value4,
+                                    style: TextStyle(fontSize: 16.0),),
+                                  Text(items[index].value5,
+                                    style: TextStyle(fontSize: 16.0),),
+                                  Text(items[index].value6,
+                                    style: TextStyle(fontSize: 16.0),),
+                                  Text(items[index].value7,
+                                    style: TextStyle(fontSize: 16.0),),
+                                  Text(items[index].value8,
+                                    style: TextStyle(fontSize: 16.0),),
+                                  Text(items[index].value9,
+                                    style: TextStyle(fontSize: 16.0),),
+                                  Text(items[index].value10,
+                                    style: TextStyle(fontSize: 16.0),),
+                                ],
+                              )
+                            ],
+                          ),
+                        ]),
 
 
                   ],
@@ -156,6 +189,7 @@ class HomeState extends State<Plawad> {
       ),
     );
   }
+}
 }
 
 class Item {
