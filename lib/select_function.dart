@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:plakad1/Camera.dart';
+import 'package:plakad1/Home.dart';
+import 'package:plakad1/SelectShape.dart';
 import 'package:plakad1/analysis.dart';
 
 void main(){
@@ -21,9 +23,14 @@ class HomeSelectFunction extends State<SelectFunction> {
   Widget build(BuildContext context) {
 
     return new Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       appBar: new AppBar(
         backgroundColor: Colors.lightGreen,
+        leading: IconButton(icon: Icon(Icons.subdirectory_arrow_left), onPressed: (){
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) => HalSatu()
+          ));
+        }),
         title: new Text('เลือกรูปแบบการวิเคราะห์'),
       ),
       body: ListView(
@@ -35,11 +42,11 @@ class HomeSelectFunction extends State<SelectFunction> {
               SizedBox(
                 width: 300.0, height: 100.0,
                 child: RaisedButton(
-                    color: Colors.white54,
+                    color: Colors.white,
                     colorBrightness: Brightness.dark,
                     onPressed: (){
                       Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => analysis()
+                          builder: (context) => SelectShape()
                       ));
                     },child: Text("วิเคราะห์โดยระบบ",style: TextStyle(color: Colors.black,fontSize: 30.0,fontWeight: FontWeight.bold),)),
               ),
@@ -47,7 +54,7 @@ class HomeSelectFunction extends State<SelectFunction> {
               SizedBox(
                 width: 400.0,height: 100,
                 child: RaisedButton(
-                    color: Colors.white54,
+                    color: Colors.white,
                     onPressed: (){
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) => LandingScreen()

@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:plakad1/Camera.dart';
 import 'package:plakad1/Kitjakam.dart';
-import 'package:plakad1/Plawad.dart';
 import 'package:plakad1/ProFile.dart';
 import 'package:plakad1/Punhar.dart';
+import 'package:plakad1/SelectHistory.dart';
 import 'package:plakad1/quamroo.dart';
-import 'package:plakad1/quiry.dart';
 import 'package:plakad1/select_function.dart';
-
 import 'Voteapp.dart';
 
 void main(){
@@ -156,7 +153,7 @@ class Function3 extends StatelessWidget{ //class สร้างfunction
       child: GestureDetector(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(
-              builder: (context) => Plawad()
+              builder: (context) => SelectHistory()
           )); //MaterialPageRoute
         },
         child: new Column(

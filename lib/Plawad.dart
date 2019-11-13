@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'ประวัติการวิเคราะห์โดยผู้เชี่ยวชาญ',
       theme: ThemeData.dark(),
       home: Plawad(),
     );
@@ -88,7 +88,7 @@ class HomeState extends State<Plawad> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
-        title: Text('ประวัติการวิเคราะห์'),
+        title: Text('ประวัติการวิเคราะห์โดยผู้เชี่ยวชาญ'),
       ),
       body: Column(
         children: <Widget>[
