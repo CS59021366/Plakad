@@ -16,6 +16,10 @@
         <meta-data android:name="com.google.android.maps.v2.API_KEY"
                    android:value="AIzaSyCf7856IF6apfZcl3yt-8bRjMvjtu7L4wo"/>
         <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
